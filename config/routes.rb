@@ -170,6 +170,15 @@ Kassi::Application.routes.draw do
             get :permissions_verified, to: redirect("/admin/paypal_preferences/permissions_verified")
           end
         end
+        resources :background_check_containers, except: [:update] do
+          post :update
+        end
+        resources :person_background_checks do
+          collection do
+            get 'people/:id' => 'person_background_checks#people_show', as: 'people'
+            post 'update_status/:id' => 'person_background_checks#update_status', as: 'update_status'
+          end
+        end
       end
       resources :custom_fields do
         collection do
@@ -363,6 +372,7 @@ Kassi::Application.routes.draw do
             get :notifications
             get :payments
             get :unsubscribe
+            get :background_check
           end
         end
         resources :testimonials
@@ -382,6 +392,10 @@ Kassi::Application.routes.draw do
     get '/:person_id/settings/profile', to: redirect("/%{person_id}/settings") #needed to keep old links working
 
   end # scope locale
+
+  devise_scope :person do
+    get '/download/:pbcc_id' => 'settings#download', :as => 'download'
+  end
 
   id_to_username = Proc.new do |params, req|
     username = Person.find(params[:person_id]).try(:username)
