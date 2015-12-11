@@ -56,6 +56,7 @@
 //= require admin/listing_shapes
 //= require admin/settings.js
 //= require admin/emails.js
+//= require admin/background_check_containers
 //= require payment_math
 //= require dropdown
 //= require jquery.nouislider
@@ -71,4 +72,5 @@
 //= require paypal_account_settings
 //= require transaction
 //= require listing_form
+//= require jquery_nested_form
 //= require_self

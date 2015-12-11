@@ -631,6 +631,13 @@ module ApplicationHelper
         :name => "transactions"
       },
       {
+        :topic => :manage,
+        :text => t("admin.communities.person_background_checks.manage_background_check"),
+        :icon_class => icon_class("coins"),
+        :path => admin_community_person_background_checks_path(@current_community),
+        :name => "background_check"
+      },
+      {
         :topic => :configure,
         :text => t("admin.communities.edit_details.community_details"),
         :icon_class => "ss-page",
@@ -717,6 +724,14 @@ module ApplicationHelper
 
     links << {
       :topic => :configure,
+      :text => t("admin.communities.background_check_container.background_check_container"),
+      :icon_class => icon_class("background_check_container"),
+      :path => admin_community_background_check_containers_path(@current_community),
+      :name => "background_check_container"
+    }
+
+    links << {
+      :topic => :configure,
       :text => t("admin.communities.edit_text_instructions.edit_text_instructions"),
       :icon_class => icon_class("edit"),
       :path => edit_text_instructions_admin_community_path(@current_community),
@@ -764,6 +779,13 @@ module ApplicationHelper
         :icon_class => icon_class("notification_settings"),
         :path => notifications_person_settings_path(person),
         :name => "notifications"
+      },
+      {
+        :id => "settings-tab-background-check",
+        :text => 'Background Check',
+        :icon_class => icon_class("notification_settings"),
+        :path => background_check_person_settings_path(person),
+        :name => "background_check"
       }
     ]
 

@@ -666,6 +666,10 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
       disable_and_submit(form_id, form, "false", locale);
     }
   });
+  $(document).on('click', '[id^=fake_btn_]', function(){
+    real_btn_bcc_id = $(this).data('real-button-bcc-id');
+    $("#real_btn_" + real_btn_bcc_id).click();
+  });
 }
 
 function initialize_update_notification_settings_form(locale, person_id) {
