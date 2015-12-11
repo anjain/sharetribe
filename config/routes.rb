@@ -153,6 +153,8 @@ Kassi::Application.routes.draw do
             put :ban
           end
           collection do
+            get :verify_users
+            get :verify_contact
             post :promote_admin
             post :posting_allowed
           end

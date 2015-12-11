@@ -1,0 +1,17 @@
+- content_for :javascript do
+  ST.initializeManageMembers();
+
+- content_for :title_header do
+  %h1
+    = t("layouts.admin.admin")
+    = "-"
+    = t("admin.communities.verify_users.verify_users")
+
+= render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) }
+
+.left-navi-section
+  = form_tag verify_contact_admin_community_community_memberships_path(@current_community), id: "verify_contects_form", method: :get do
+    %label Mobile Number
+    = number_field_tag :contact, nil
+    = submit_tag "Verify by SMS", class: "new-listing-link"
+    %div#verify_contact

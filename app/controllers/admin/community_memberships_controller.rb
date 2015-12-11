@@ -70,6 +70,16 @@ class Admin::CommunityMembershipsController < ApplicationController
     render nothing: true, status: 200
   end
 
+  def verify_users
+    @selected_left_navi_link = "verify_users"
+    @community = @current_community
+  end
+
+  def verify_contact
+   flash[:notice] = "Contact verified successfully." 
+   redirect_to :back
+  end
+
   private
 
   def generate_csv_for(yielder, memberships, community)

@@ -245,6 +245,8 @@ en:
         last_community_updates: "Please note that after deletion, you and your marketplace users may still receive the last marketplace update emails."
         you_will_be_redirected_to: "After you have deleted your marketplace you will be redirected to %{destination}. You will not be able to access your marketplace anymore."
         delete_this_marketplace: "Delete this marketplace"
+      verify_users:
+        verify_users: "Verify users"
       manage_members:
         manage_members: "Manage users"
         email: Email
