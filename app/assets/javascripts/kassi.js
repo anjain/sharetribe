@@ -670,6 +670,26 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
     real_btn_bcc_id = $(this).data('real-button-bcc-id');
     $("#real_btn_" + real_btn_bcc_id).click();
   });
+
+  $(document).on('click',"#person_verified_contacts", function(){
+    var phone_number = $("#person_phone_number").val();
+    var person_id = $(this).attr("data-id");
+    var url = "/"+ person_id +"/settings/send_verification_sms";
+    if(phone_number){
+      $.post(url, {phone_number: phone_number, format: "js"}, function (data) {
+      });
+    }
+  });
+
+  $(document).on('click',"#person_verified_code", function(){
+    var token = $("#token").val();
+    var person_id = $(this).attr("data-id");
+    var url = "/"+ person_id +"/settings/verify_code";
+    if(token){
+      $.get(url, {token: token, format: "js"}, function (data) {
+      });
+    }
+  });
 }
 
 function initialize_update_notification_settings_form(locale, person_id) {

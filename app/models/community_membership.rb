@@ -67,4 +67,14 @@ class CommunityMembership < ActiveRecord::Base
     consent.present? && consent == community.consent
   end
 
+  def self.to_csv(options = {})
+    CSV.generate do |csv|
+      csv << ["Serial No.", "Name", "Email", "Admin", "Contact Verified"]
+      all.each_with_index do |membership, index|
+        member = membership.person
+        csv << [index+1, member.full_name, member.confirmed_notification_email_addresses.first, member.is_admin_of?(membership.community), member.contact_verified]
+      end
+    end
+  end
+
 end

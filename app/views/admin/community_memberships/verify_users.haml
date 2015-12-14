@@ -10,8 +10,38 @@
 = render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) }
 
 .left-navi-section
-  = form_tag verify_contact_admin_community_community_memberships_path(@current_community), id: "verify_contects_form", method: :get do
-    %label Mobile Number
-    = number_field_tag :contact, nil
-    = submit_tag "Verify by SMS", class: "new-listing-link"
-    %div#verify_contact
+  %h2= t("admin.communities.verify_users.verify_users", :community_name => @community.name(I18n.locale))
+  
+  - if @verified_members.present?
+    #export-as-csv.right= link_to(" " + t("admin.communities.manage_members.export_all_as_csv"), {format: :csv}, {class: " " + icon_class("download")})
+
+  %span#admin_members_count= page_entries_info(@verified_members, :model => "Verified Member")
+
+  - if @verified_members.present?
+    %table#admin_members_list
+      %thead
+        %tr
+          %th
+            Name
+          %th
+            Email 
+          %th 
+            Admin
+          %th
+            Contact Verified
+      %tbody
+        - @verified_members.each do |membership|
+          - member = membership.person
+          - unless member.blank?
+            %tr
+              %td.admin-members-full-name
+                = link_to member.full_name, member
+              %td
+                = mail_to member.confirmed_notification_email_addresses.first
+              %td{:style => "text-align: center"}
+                = member.is_admin_of?(@community)
+              %td{:style => "text-align: center"}
+                = member.contact_verified
+    .row
+      .col-12
+        = will_paginate @verified_members

@@ -154,7 +154,6 @@ Kassi::Application.routes.draw do
           end
           collection do
             get :verify_users
-            get :verify_contact
             post :promote_admin
             post :posting_allowed
           end
@@ -375,6 +374,8 @@ Kassi::Application.routes.draw do
             get :payments
             get :unsubscribe
             get :background_check
+            post :send_verification_sms
+            get :verify_code
           end
         end
         resources :testimonials

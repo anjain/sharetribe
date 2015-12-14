@@ -605,7 +605,7 @@ module ApplicationHelper
       {
         :topic => :manage,
         :text => t("admin.communities.verify_users.verify_users"),
-        :icon_class => "ss-page",
+        :icon_class => icon_class("information"),
         :path => verify_users_admin_community_community_memberships_path(@current_community),
         :name => "verify_users"
       },

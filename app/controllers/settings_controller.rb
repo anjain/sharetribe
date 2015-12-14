@@ -74,6 +74,22 @@ class SettingsController < ApplicationController
     end
   end
 
+  def send_verification_sms
+    @send_sms = TwilioService::Twilio.send_sms(@person.emails.first.address, params[:phone_number], @person.id)
+    respond_to do |format|
+      format.js { render layout: false, content_type: 'text/javascript'}
+    end
+  end
+
+  def verify_code
+    @token = TwilioService::Twilio.validate(@person.authy_id, params[:token])
+    @person.update_attribute(:contact_verified, true) if @token.ok?
+    
+    respond_to do |format|
+      format.js { render layout: false, content_type: 'text/javascript'}
+    end
+  end
+
   private
 
   def add_location_to_person

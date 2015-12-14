@@ -1,0 +1,13 @@
+- if @send_sms.success?
+	$("#verify_txt_msg").addClass("green");
+	$("#verify_txt_msg").text("Verification Code send successfully");
+	$("#verification_code").removeClass("unwanted_text_field");
+- else
+	$("#verify_txt_msg").addClass("red");
+	$("#verify_txt_msg").text("#{@send_sms.message}");
+
+setTimeout(function() {
+$("#verify_txt_msg").text("");
+$("#verify_txt_msg").removeClass("red");
+$("#verify_txt_msg").removeClass("green");
+}, 10000);

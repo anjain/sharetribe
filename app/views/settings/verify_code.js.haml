@@ -1,0 +1,13 @@
+-if @token.ok?
+	$("#verify_txt_msg").addClass("green");
+	$("#verify_txt_msg").text("Mobile number validated successfully.");
+	$("#verification_code").addClass("unwanted_text_field");
+-else
+	$("#verify_txt_msg").addClass("red");
+	$("#verify_txt_msg").text("Incorrect code, please try again");
+
+setTimeout(function() {
+$("#verify_txt_msg").text("");
+$("#verify_txt_msg").removeClass("red");
+$("#verify_txt_msg").removeClass("green");
+}, 10000);

@@ -40,6 +40,8 @@
 #  is_organization                    :boolean
 #  organization_name                  :string(255)
 #  deleted                            :boolean          default(FALSE)
+#  authy_id                           :integer
+#  contact_verified                   :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -73,11 +73,15 @@ class Admin::CommunityMembershipsController < ApplicationController
   def verify_users
     @selected_left_navi_link = "verify_users"
     @community = @current_community
-  end
-
-  def verify_contact
-   flash[:notice] = "Contact verified successfully." 
-   redirect_to :back
+    respond_to do |format|
+      format.html do
+        @verified_members = CommunityMembership.where(community_id: @current_community.id, status: "accepted").includes(person: :emails).where("people.contact_verified" => true ).paginate(page: params[:page], per_page: 50)
+      end
+      format.csv do
+        @verified_members = CommunityMembership.where(community_id: @community.id, status: "accepted").includes(person: [:emails, :location]).where("people.contact_verified" => true)
+        send_data @verified_members.to_csv
+      end
+    end
   end
 
   private
