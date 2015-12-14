@@ -4,7 +4,7 @@ module TwilioService::Twilio
   
   def send_sms email, contact, person
     person = Person.find_by_id(person)
-    authy = Authy::API.register_user(email: email, cellphone: contact, country_code: "+91")
+    authy = Authy::API.register_user(email: email, cellphone: contact, country_code: APP_CONFIG.country_code)
     person.update_attributes(authy_id: authy.id, phone_number: contact)
     sms = Authy::API.request_sms(id: authy.id)
   end
