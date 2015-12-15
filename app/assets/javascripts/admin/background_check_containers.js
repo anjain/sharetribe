@@ -7,5 +7,10 @@ window.ST.initializeBcc = function() {
       $('.text_fields').addClass('hidden');
       $('.file_fields').removeClass('hidden');
     }
-  })
+  });
+
+	$(document).on('click', '.check_cont', function(){
+		var bcc_id = $(this).attr("data-attr");
+		$(".container_"+bcc_id).not(this).prop('checked', false);
+	});
 };

@@ -634,4 +634,14 @@ class Person < ActiveRecord::Base
   def self.members_of(community)
     joins(:communities).where("communities.id" => community.id)
   end
+
+  def get_check_value bcc
+    bcc = BackgroundCheckContainer.find_by_id(bcc)
+    data = self.person_background_checks.where(background_check_container_id: bcc.id).first
+    if bcc.container_type == "file"
+      data.present? ? data.document_file_name : ""
+    else
+      data.value.present? ? data.value.truncate(20) : ""
+    end
+  end
 end

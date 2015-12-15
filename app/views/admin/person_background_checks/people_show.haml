@@ -1,5 +1,5 @@
 - content_for :javascript do
-  /ST.initializeManageMembers();
+  ST.initializeBcc();
 
 - content_for :title_header do
   %h1
@@ -11,14 +11,26 @@
 
 .left-navi-section
   = form_for :people_status, url: update_status_admin_community_person_background_checks_path(id: @person.id) do |f|
-    - @background_check_containers.each do |bcc|
-      - person_status = get_person_status @person, bcc.id
-      .field
-        = label_tag bcc.name
-        - bcc.bcc_statuses.each do |bcc_status|
-          .field
-            = check_box_tag "background_check_containers[#{bcc.id}][#{bcc_status.id}]", 1, person_status.include?(bcc_status.id) ? true : false
-            = h bcc_status.status
+    %table.table-bordered
+      %thead
+        %tr
+          %th Check Name
+          %th Check Value
+          %th Status
+      %tbody
+        - @background_check_containers.each do |bcc|
+          - person_status = get_person_status @person, bcc.id
+          %tr
+            %td
+              = bcc.name
+            %td
+              = @person.get_check_value(bcc.id)
+            %td
+              .field
+                - bcc.bcc_statuses.each do |bcc_status|
+                  .field
+                    = check_box_tag "background_check_containers[#{bcc.id}][#{bcc_status.id}]", 1, person_status.include?(bcc_status.id) ? true : false, class: "check_cont container_#{bcc.id}", "data-attr" => "#{bcc.id}"
+                    = h bcc_status.status
 
     .actions
       = f.submit
